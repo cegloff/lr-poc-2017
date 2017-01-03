@@ -1,0 +1,3 @@
+$newDNSServers = "<%= @dns -%>","8.8.8.8"
+$adapters = Get-WmiObject Win32_NetworkAdapterConfiguration | Where-Object {$_.DNSServerSearchOrder -ne $null}
+$adapters | ForEach-Object {$_.SetDNSServerSearchOrder($newDNSServers)}

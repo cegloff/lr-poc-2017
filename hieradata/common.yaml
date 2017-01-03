@@ -1,0 +1,28 @@
+# Infra common information.
+# Perform hiera lookups on any manifests that requires them
+# jesus xuxo garcia jesus@puppet.com
+# @GarciaXuxo
+# here
+---
+# ---NTP VALUES
+ntp:
+  server_1: ntp1.somewhere.com
+  server_2: ntp2.somewhere.com
+  zone: UTC
+# ---WINDOWS DOMAIN VALUES
+ad_domain:
+  domain: puppet.xuxo
+  netbios: puppet
+  password: Password!1234
+  machine_ou: OU=test_servers,DC=puppet,DC=xuxo
+  username: Administrator
+  new_username: LRDM
+  dns: 192.168.0.53
+common_user:
+  username: jgarcia2
+  win_group: Administrators
+  linux_group: root
+  default_pw: Password!1234
+# ---WSUS VALUES
+wsus_info:
+  server: wsus.somewhere.com

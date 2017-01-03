@@ -1,0 +1,76 @@
+1st scenario small
+2nd scenario small enterprise base
+
+1 x PM Server (2012 R2)
+1 x LM Server  (2012 R2)
+1 x DX Server (CentOS)
+1 x AIE Server (2012 R2)
+1 x WC Server (2012 R2)
+
+PM = Platform Manager
+LM = Log Manager
+DX = Data Indexer
+AIE = AI Engine
+WC = Web Console
+
+=====
+TIMEZONE  - DATETIME (UTC)
+ALL Static IPs, including Domain Controller
+DC = Users/Computers
+All Windows Boxes use 3.5 NET
+Files local C:\LR Installs\
+
+XM - All-in-One
+
+PM - Need config file for SQL (Enter License)
+   --> generated file to install SQL Server -> install silently with config -> Apply DDL scripts (creates instance, schema)
+   --> Need logs from SQL Install
+   SQL INSTALLED
+   --> Install LR (Wizard) (Chris capturing registry)
+   --> Executable calls other executables (all in folder) Separate Config than SQL. Optional App. Main EXE is a wizard. However others are silent so we might be able to leverage that
+   --> Baselined file (Reg and C capture)
+   --> Log files might have completion times (flags are in there)
+   --> Get install logs afterwards
+   --> Web Services Configuration Manager (UI Wizard) (There is a Backup to file option, JSON, can be ERB templated)
+
+   --> Each Component Service/config/.ini (Usually, DBServer= Password=)
+   --> Enable and Start Services [At End]
+   --> Services Start and Config gets pulled in
+       (Possible database export / import)
+       -> Run differential SQL
+       -> Give KB files
+       -> KB Import Wizard
+       -> Permissions' sets to be driven by SQL
+       -> LR-PM5400 Series (HW model -->)
+       -> Go to Console and Add the other systems
+       -> Everything on console is an entry in DB
+    --> Seed data
+
+DX -> DO FIRST!!!! fix this file
+   -> Linux post-OS config
+   -> Static Hosts file all IP
+   -> RPM hostname + IP flags
+   -> No yum on it (possibly clone only....)
+   -> DX config -> Writes on YAML config -> Changes IP ->
+   -> restart services -> /usr/local/lr/conf - carpenter.yaml
+   -> user lr
+   -> tools/stop and start all services
+   -> ELK stack w/wrappers
+   -> DONE
+   -> Back to PM ^
+   -> Force NTP refresh to DC!
+
+DP -> Same Wizard -> Select DP -> Invoke the other EXEs
+   -> Configure .ini -> DBHost and Password change
+
+AIE -> Same Wizard -> Select DP -> Invoke the other EXEs
+   -> Configure .ini -> DBHost and Password change
+
+Start Services: -> PM first -> Job Manager (lrjobmgr)  - Alert and Monitor (scarm)
+                   AEI      -> AI (lraieengine ) + comm (LRAEIComMgr)
+                   DP       -> Mediator service (Bug) (Update SQL script)
+
+Agent - silent install
+
+LogGen - In any box
+       ->
